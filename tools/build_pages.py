@@ -232,7 +232,7 @@ PHOTOS = [
 
 
 def photo_item(key, kind, caption):
-    return (f'<button class="g-item" type="button" data-type="{kind}" data-caption="{caption}" '
+    return (f'<button class="g-item" type="button" data-type="{kind}" '
             f'data-src="img/gallery/{key}-1600.webp" aria-label="Открыть: {caption}">'
             f'<img class="g-item__img" src="img/gallery/{key}-800.webp" alt="{caption}" loading="lazy" decoding="async"></button>')
 
@@ -494,7 +494,7 @@ index_body = f'''<section class="hero">
 
 <section class="section theme-light" id="diagnostics">
   <div class="container product">
-    <div class="product__media reveal">{ph("Фото процесса диагностики", "i-gauge", "warm")}</div>
+    <div class="product__media product__media--photo reveal"><img src="img/gallery/g15-1600.webp" alt="Porsche Cayman на подъёмнике в Wagner Motors" loading="lazy" decoding="async"></div>
     <div class="product__body">
       <p class="eyebrow reveal">Главная услуга</p>
       <h2 class="h2 reveal" style="--d:1">Комплексная диагностика</h2>
