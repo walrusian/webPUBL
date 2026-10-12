@@ -645,7 +645,7 @@ services_body = f'''<section class="page-hero">
       <div>
         {f'<span class="badge" style="margin-bottom:1rem">{i("i-ticket")}+ билет в розыгрыше Porsche Cayenne</span>' if PROMO else ''}
         <h2 class="h2">Комплексная диагностика</h2>
-        <div class="price"><span class="price__value">5&nbsp;000&nbsp;₽</span><span class="small">длительность — {todo("уточнить")}</span></div>
+        <div class="price"><span class="price__value">5&nbsp;000&nbsp;₽</span></div>
         <div class="product__actions">
           {ACTIONS}
         </div>
