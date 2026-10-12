@@ -4,6 +4,14 @@
 
   const { Spring, VelocityTracker, project, rubberband, reduceMotion } = window.Fluid;
 
+  /* ---------- Защита от встраивания в чужой фрейм (кликджекинг) ----------
+     На GitHub Pages нельзя поставить заголовок frame-ancestors, поэтому так:
+     страницу внутри чужого <iframe> не показываем и пытаемся выйти из фрейма. */
+  if (window.top !== window.self) {
+    document.documentElement.style.display = 'none';
+    try { window.top.location.href = window.self.location.href; } catch (e) { /* чужой домен — просто остаёмся скрытыми */ }
+  }
+
   const PRICE = 5000;      // стоимость диагностики, ₽
   const MAX_QTY = 5;       // сколько диагностик можно положить в корзину
   const CART_KEY = 'wagner.cart';
@@ -217,15 +225,27 @@
         if (inp.type === 'checkbox' || touched.has(inp)) checkField(inp);
       });
     });
+    // Ловушка для ботов: невидимое поле website и слишком быстрая отправка
+    const startedAt = Date.now();
+    const MIN_FILL_MS = 3000;
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (form.hasAttribute('data-guard')) {
+        const trap = form.querySelector('input[name="website"]');
+        if ((trap && trap.value) || Date.now() - startedAt < MIN_FILL_MS) {
+          onValid(null, { bot: true }); // молча «принимаем», ничего не отправляя
+          return;
+        }
+      }
       let first = null;
       fields.forEach((inp) => {
         touched.add(inp);
         if (!checkField(inp) && !first) first = inp;
       });
       if (first) { first.focus(); return; }
-      onValid(new FormData(form));
+      const data = new FormData(form);
+      data.delete('website');
+      onValid(data, { bot: false });
     });
   }
 

@@ -43,7 +43,8 @@
   });
   document.addEventListener('cart:change', render);
 
-  initForm(form, () => {
+  initForm(form, (data, { bot }) => {
+    if (bot) return;
     sheetAmount.textContent = money(Cart.qty * Cart.price);
     sheet.show();
   });

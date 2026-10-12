@@ -1049,6 +1049,9 @@ select.input {
 }
 .segmented input:nth-of-type(2):checked ~ .segmented__thumb { transform: translateX(100%); }
 
+/* Ловушка для ботов: поле есть в форме, но человеку не видно и не доступно с клавиатуры */
+.hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
 .dev-note { font-size: 0.8125rem; color: var(--text-3); text-align: center; }
 
 /* ============ ЗАПИСЬ ============ */

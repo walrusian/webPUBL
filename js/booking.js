@@ -12,13 +12,16 @@
    * TODO: отправка заявки. Сейчас это заглушка — данные никуда не уходят.
    * Сюда подключается серверная функция (хранение в РФ), а из неё — CRM (amoCRM / Битрикс24 и т.п.).
    * Это единственная точка, через которую заявка покидает сайт.
+   * Проверки в браузере (ловушка, маска телефона, maxlength) — только удобство:
+   * сервер обязан заново проверить все поля, длины и частоту заявок (rate limit) сам.
    */
   async function sendLead(data) {
     void data;
     return new Promise((resolve) => setTimeout(resolve, 700));
   }
 
-  initForm(form, async (data) => {
+  initForm(form, async (data, { bot }) => {
+    if (bot) { card.classList.add('is-done'); return; } // бот видит «успех», заявка никуда не уходит
     submit.disabled = true;
     submit.classList.add('is-loading');
     try {

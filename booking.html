@@ -6,6 +6,8 @@
 <title>Запись на диагностику — Wagner Motors</title>
 <meta name="description" content="Оставьте заявку на диагностику — мы перезвоним.">
 <meta name="theme-color" content="#0a0a0b">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/png" href="img/logo-64.png">
 <link rel="stylesheet" href="css/styles.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -59,7 +61,8 @@
       </div>
     </aside>
     <div class="form-card reveal" style="--d:1" data-booking>
-      <form class="form" action="#" method="post">
+      <form class="form" action="#" method="post" data-guard>
+        <div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="form__row">
           <div class="field">
             <label class="field__label" for="b-name">Имя</label>

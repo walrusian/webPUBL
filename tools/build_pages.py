@@ -151,6 +151,17 @@ FOOTER = f'''<footer class="footer">
 </footer>'''
 
 
+# Политика безопасности: только свои файлы, без внешних скриптов, шрифтов и фреймов.
+# Единственный встроенный скрипт (класс .js на <html>) разрешён по sha256-хешу —
+# меняя его текст, пересчитай хеш. style-src 'unsafe-inline' нужен для атрибутов style="--d:…".
+# Когда появится серверная функция для заявок, добавь её адрес в connect-src.
+# frame-ancestors, X-Frame-Options, HSTS и nosniff через <meta> не работают — их ставят на хостинге.
+CSP = ("default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6XKDDU/tyj/5c2uvwo='; "
+       "style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; "
+       "media-src 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; "
+       "base-uri 'self'; form-action 'self'; upgrade-insecure-requests")
+
+
 def page(filename, title, description, body, active='', scripts=(), body_class=''):
     js = ''.join(f'\n<script src="js/{s}" defer></script>' for s in ('spring.js', 'main.js', *scripts))
     html = f'''<!doctype html>
@@ -161,6 +172,8 @@ def page(filename, title, description, body, active='', scripts=(), body_class='
 <title>{title}</title>
 <meta name="description" content="{description}">
 <meta name="theme-color" content="#0a0a0b">
+<meta http-equiv="Content-Security-Policy" content="{CSP}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/png" href="img/logo-64.png">
 <link rel="stylesheet" href="css/styles.css">
 <script>document.documentElement.classList.add('js')</script>{js}
@@ -803,7 +816,8 @@ booking_body = f'''<section class="page-hero">
       </div>
     </aside>
     <div class="form-card reveal" style="--d:1" data-booking>
-      <form class="form" action="#" method="post">
+      <form class="form" action="#" method="post" data-guard>
+        <div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="form__row">
           <div class="field">
             <label class="field__label" for="b-name">Имя</label>
@@ -901,7 +915,8 @@ cart_body = f'''<div data-cart data-state="empty">
 
         <div class="form-card">
           <h2 class="h3 form-head" style="margin-bottom:1.25rem">Оформление</h2>
-          <form class="form" id="checkout" action="#" method="post">
+          <form class="form" id="checkout" action="#" method="post" data-guard>
+            <div class="hp" aria-hidden="true"><label>Не заполняйте это поле<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
             <div class="form__row">
               <div class="field">
                 <label class="field__label" for="c-name">Имя</label>
