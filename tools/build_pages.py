@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Сборщик страниц Wagner Motors: общая шапка/подвал/иконки + содержимое всех страниц.
 # Запуск из корня проекта: python3 tools/build_pages.py — перезаписывает *.html в корне.
+import json
 import os
 
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -792,6 +793,11 @@ contacts_body = f'''<section class="page-hero">
 page('contacts.html', 'Контакты — Wagner Motors', 'Адрес, телефон и часы работы Wagner Motors.', contacts_body, active='contacts.html')
 
 # ---------------------------------------------------------------- ЗАПИСЬ
+# Выбор в форме записи: «Диагностика» или «Ремонт», список под ним меняется (js/booking.js)
+BOOKING_DIAG = ['Комплексная диагностика', 'Компьютерная диагностика', 'Диагностика ходовой', 'Диагностика двигателя',
+                'Диагностика тормозной системы', 'Диагностика электрики', 'Другое']
+BOOKING_REPAIR = ['Комплексный ремонт', 'Двигатель', 'Ходовая и подвеска', 'Тормозная система', 'АКПП',
+                  'ТО и жидкости', 'Шины и кузов', 'Другое']
 booking_body = f'''<section class="page-hero">
   <div class="container">
     <p class="eyebrow reveal">Запись</p>
@@ -804,7 +810,7 @@ booking_body = f'''<section class="page-hero">
     <aside class="reveal">
       <h2 class="h3">Что будет дальше</h2>
       <ul class="info-list">
-        <li>{bicon("phone", " bicon--sm")}<div><strong>Перезвоним</strong><span class="small">в течение {todo("N минут")} в рабочее время</span></div></li>
+        <li>{bicon("phone", " bicon--sm")}<div><strong>Перезвоним</strong><span class="small">в течение 15 минут в рабочее время</span></div></li>
         <li>{bicon("i-clock", " bicon--sm")}<div><strong>Согласуем время</strong><span class="small">в удобный для вас день</span></div></li>
         <li>{bicon("tools", " bicon--sm")}<div><strong>Проведём диагностику</strong><span class="small">и выдадим отчёт с рекомендациями</span></div></li>
       </ul>
@@ -842,6 +848,22 @@ booking_body = f'''<section class="page-hero">
               <option>Утром</option>
               <option>Днём</option>
               <option>Вечером</option>
+            </select>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <span class="field__label" id="kind-label">Что нужно</span>
+            <div class="segmented" role="radiogroup" aria-labelledby="kind-label">
+              <input type="radio" name="kind" id="kind-diag" value="Диагностика" checked><label for="kind-diag">{i("i-gauge")}Диагностика</label>
+              <input type="radio" name="kind" id="kind-repair" value="Ремонт"><label for="kind-repair">{i("i-wrench")}Ремонт</label>
+              <span class="segmented__thumb" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label" for="b-service" data-service-label>Какая диагностика</label>
+            <select class="input" id="b-service" name="service" data-diag='{json.dumps(BOOKING_DIAG, ensure_ascii=False)}' data-repair='{json.dumps(BOOKING_REPAIR, ensure_ascii=False)}'>
+              {''.join(f'<option>{o}</option>' for o in BOOKING_DIAG)}
             </select>
           </div>
         </div>
