@@ -474,7 +474,6 @@ index_body = f'''<section class="hero">
       <h2 class="h2 reveal" style="--d:1">Комплексная диагностика</h2>
       <div class="price reveal" style="--d:2"><span class="price__value">5&nbsp;000&nbsp;₽</span>{f'<span class="badge">{i("i-ticket")}+ билет в розыгрыше</span>' if PROMO else ''}</div>
       <ul class="checklist reveal" style="--d:3">{CHECKLIST}</ul>
-      <p class="draft-note">состав диагностики — пример, уточнить у клиента</p>
       <div class="product__actions reveal">
         {ACTIONS}
       </div>
@@ -613,7 +612,6 @@ about_body = f'''<section class="page-hero">
       <div class="card reveal" style="--d:1"><span class="card__icon">{i("i-doc")}</span><h3 class="h3">Понятная смета</h3><p class="small">Согласуем стоимость до&nbsp;начала работ.</p></div>
       <div class="card reveal" style="--d:2"><span class="card__icon">{i("i-shield")}</span><h3 class="h3">Гарантия</h3><p class="small">Условия гарантии: {todo("срок и на что распространяется")}</p></div>
     </div>
-    <p class="draft-note">принципы — пример формулировок, согласовать с клиентом</p>
   </div>
 </section>
 
@@ -815,7 +813,6 @@ booking_body = f'''<section class="page-hero">
           <span class="field__error" aria-live="polite"></span>
         </div>
         <button class="btn btn--primary btn--lg btn--block" type="submit">Оставить заявку</button>
-        <p class="dev-note">Черновик: отправка заявки и интеграция с CRM будут подключены позже</p>
       </form>
       <div class="success" role="status">
         <div class="success__icon">{i("i-check")}</div>
