@@ -1187,6 +1187,15 @@ select.input {
   .footer__brand { grid-column: 1 / -1; }
 }
 
+/* ============ ЮРИДИЧЕСКИЕ ДОКУМЕНТЫ ============ */
+.legal { max-width: 46rem; color: var(--text-2); font-size: 1rem; line-height: 1.65; }
+.legal .h3 { margin: 2.5rem 0 0.9rem; color: var(--text); }
+.legal .h3:first-child { margin-top: 0; }
+.legal p + p { margin-top: 0.75rem; }
+.legal ul { margin: 0.75rem 0; padding-left: 1.25rem; display: grid; gap: 0.4rem; }
+.legal ul + p { margin-top: 0.75rem; }
+.legal a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 2px; }
+
 /* ============ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ ============ */
 .js .reveal {
   opacity: 0;
