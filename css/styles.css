@@ -95,7 +95,7 @@ svg.i { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; strok
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ============ ТИПОГРАФИКА ============ */
-.display, .h1, .h2, .h3 { text-wrap: balance; }
+.display, .h1, .h2, .h3 { text-wrap: balance; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
 /* Трекинг зависит от размера: крупное — плотнее, мелкое — свободнее */
 .display {
   font-family: var(--font-display);
