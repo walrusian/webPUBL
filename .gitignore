@@ -1,0 +1,5 @@
+# Служебное — не для публичного репозитория
+.claude/
+CLAUDE.md
+.DS_Store
+__pycache__/
