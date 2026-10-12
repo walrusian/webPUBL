@@ -711,23 +711,8 @@ services_body = f'''<section class="page-hero">
       </div>
       <p class="lead cta__phones reveal">{PHONE_LINKS}</p>
     </div>
-    <nav class="chips reveal" aria-label="Разделы услуг">{''.join(f'<a class="chip" href="#{k}">{t}</a>' for k, _, t, _ in PRICES_PAIRED)}<a class="chip" href="#rent">Аренда авто</a></nav>
+    <nav class="chips reveal" aria-label="Разделы услуг">{''.join(f'<a class="chip" href="#{k}">{t}</a>' for k, _, t, _ in PRICES_PAIRED)}</nav>
     <div class="pricelist">{''.join(price_group(*g, n=n) for n, g in enumerate(PRICES_PAIRED))}</div>
-  </div>
-</section>
-
-<section class="section" id="rent">
-  <div class="container">
-    <div class="feature reveal">
-      <div>
-        <p class="eyebrow">Автопрокат</p>
-        <h2 class="h2">Аренда автомобилей</h2>
-        <p class="lead" style="margin-top:1rem">Предоставляем услугу посуточной аренды автомобилей, новый парк, доставка автомобилей к&nbsp;месту требования.</p>
-      </div>
-      <div class="product__actions" style="justify-content:flex-end">
-        <a class="btn btn--primary btn--lg" href="tel:{PHONES[0][0]}">{i("i-phone")}Позвонить</a>
-      </div>
-    </div>
   </div>
 </section>'''
 page('services.html', 'Услуги — Wagner Motors', 'Диагностика, обслуживание и ремонт автомобилей в Wagner Motors.', services_body, active='services.html')
