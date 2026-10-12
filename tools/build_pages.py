@@ -9,6 +9,7 @@ OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Временно выключенные части сайта. Код (cart.html, js/cart.js, стили билета/корзины) остаётся —
 # чтобы вернуть, поставить True и пересобрать страницы.
 PROMO = False   # акция: розыгрыш Porsche Cayenne (блок с билетом, бейджи, правила акции)
+SHOW_PRICE = False  # цена комплексной диагностики (5 000 ₽) на страницах — убрана по просьбе владельца 12.10.2026
 SHOP = False    # корзина и онлайн-оплата (кнопка корзины, «Купить», «Добавить в корзину»)
 
 ICONS = {
@@ -520,7 +521,7 @@ index_body = f'''<section class="hero">
     <div class="product__body">
       <p class="eyebrow reveal">Главная услуга</p>
       <h2 class="h2 reveal" style="--d:1">Комплексная диагностика</h2>
-      <div class="price reveal" style="--d:2"><span class="price__value">5&nbsp;000&nbsp;₽</span>{f'<span class="badge">{i("i-ticket")}+ билет в розыгрыше</span>' if PROMO else ''}</div>
+      {'<div class="price reveal" style="--d:2"><span class="price__value">5&nbsp;000&nbsp;₽</span>' + (f'<span class="badge">{i("i-ticket")}+ билет в розыгрыше</span>' if PROMO else '') + '</div>' if SHOW_PRICE else ''}
       <ul class="checklist reveal" style="--d:3">{CHECKLIST}</ul>
       <div class="product__actions reveal">
         {ACTIONS}
@@ -612,7 +613,7 @@ index_body = f'''<section class="hero">
 </section>'''
 
 page('index.html', 'Wagner Motors — автосервис',
-     'Автосервис Wagner Motors: комплексная диагностика автомобиля за 5 000 ₽' + (' и участие в розыгрыше Porsche Cayenne.' if PROMO else ', ремонт и обслуживание.'),
+     'Автосервис Wagner Motors: комплексная диагностика автомобиля' + (' за 5 000 ₽' if SHOW_PRICE else '') + (' и участие в розыгрыше Porsche Cayenne.' if PROMO else ', ремонт и обслуживание.'),
      index_body, scripts=('hero.js', 'gallery.js'))
 
 # ---------------------------------------------------------------- О КОМПАНИИ
@@ -691,7 +692,7 @@ services_body = f'''<section class="page-hero">
       <div>
         {f'<span class="badge" style="margin-bottom:1rem">{i("i-ticket")}+ билет в розыгрыше Porsche Cayenne</span>' if PROMO else ''}
         <h2 class="h2">Комплексная диагностика</h2>
-        <div class="price"><span class="price__value">5&nbsp;000&nbsp;₽</span></div>
+        {'<div class="price"><span class="price__value">5&nbsp;000&nbsp;₽</span></div>' if SHOW_PRICE else ''}
         <div class="product__actions">
           {ACTIONS}
         </div>
@@ -821,7 +822,7 @@ booking_body = f'''<section class="page-hero">
       <p class="cta__phones" style="margin-top:.35rem;font-weight:600">{PHONE_LINKS}</p>
       <div class="mini-product">
         <div><strong>Комплексная диагностика</strong>{f'<br><span class="badge" style="margin-top:.4rem">{i("i-ticket")}+ билет в розыгрыше</span>' if PROMO else ''}</div>
-        <span class="mini-product__price">5&nbsp;000&nbsp;₽</span>
+        {'<span class="mini-product__price">5&nbsp;000&nbsp;₽</span>' if SHOW_PRICE else ''}
       </div>
     </aside>
     <div class="form-card reveal" style="--d:1" data-booking>
