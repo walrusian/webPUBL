@@ -187,19 +187,45 @@ def ph_video(label, tone='cool'):
     return f'<div class="ph ph--{tone}"><div class="ph__inner"><span class="ph__play">{i("i-play")}</span><span>{label}</span></div></div>'
 
 
-# Фотосессия мастерской (фотограф Роман, rkochkaev.ru, 08.02.2026): 12 лучших кадров,
-# головы механиков на g01 размыты. Плитка — *-800.webp, полноэкранный просмотр — *-1600.webp.
+# Фотосессии мастерской (фотограф Роман, rkochkaev.ru, разделы 08.02–26.08.2026): 37 лучших кадров.
+# Головы механиков на g01 и номера на g15, g33 размыты. Плитка — *-800.webp, полноэкранный просмотр — *-1600.webp.
 PHOTOS = [
+    # общий план и машины
     ('g01', 'workshop', 'Мастерская'),
+    ('g15', 'cars', 'Porsche Cayman на подъёмнике'),
+    ('g13', 'engine', 'Цепь ГРМ'),
     ('g02', 'workshop', 'BMW на стенде'),
+    ('g18', 'process', 'Сварочные работы'),
+    ('g20', 'engine', 'Привод ГРМ'),
     ('g03', 'workshop', 'Нива на подъёмнике'),
-    ('g04', 'workshop', 'Чистый бокс'),
+    ('g14', 'process', 'Тормозной суппорт и диск'),
+    ('g31', 'cars', 'Audi в сервисе'),
     ('g05', 'process', 'Новый тормозной суппорт'),
+    ('g21', 'engine', 'Поршень и шатун'),
+    ('g33', 'cars', 'BMW на подъёмнике'),
+    ('g24', 'process', 'Снятие колеса'),
+    ('g07', 'engine', 'Ремонт двигателя'),
+    ('g30', 'cars', 'В боксе'),
     ('g06', 'process', 'Перфорированный тормозной диск'),
-    ('g07', 'process', 'Ремонт двигателя'),
+    ('g19', 'engine', 'Двигатель на стенде'),
+    ('g17', 'cars', 'Задний фонарь'),
+    ('g25', 'process', 'Проверка давления в шинах'),
+    ('g22', 'engine', 'Головка блока цилиндров'),
+    ('g04', 'workshop', 'Чистый бокс'),
+    ('g26', 'process', 'Обслуживание тормозов'),
+    ('g28', 'engine', 'Сборка ГРМ'),
+    ('g32', 'cars', 'Колёсный диск'),
     ('g08', 'process', 'Подвеска'),
+    ('g29', 'engine', 'Блок цилиндров'),
+    ('g34', 'cars', 'Шильдик S4'),
+    ('g27', 'process', 'Шиномонтаж'),
+    ('g35', 'engine', 'Шестерня ГРМ'),
     ('g09', 'process', 'Трансмиссия'),
+    ('g16', 'engine', 'Свечи зажигания'),
+    ('g23', 'process', 'Инструмент и запчасти'),
+    ('g36', 'engine', 'Распредвалы'),
     ('g10', 'process', 'Работа мастера'),
+    ('g37', 'engine', 'Головка блока с распредвалами'),
     ('g11', 'process', 'Ступица и тормоза'),
     ('g12', 'process', 'Днище автомобиля'),
 ]
@@ -519,7 +545,7 @@ index_body = f'''<section class="hero">
       <a class="link reveal" href="gallery.html">Вся галерея {i("i-arrow")}</a>
     </div>
     <div class="bento reveal" data-gallery>
-      {''.join(photo_item(*PHOTOS[n]) for n in (0, 4, 6, 1))}
+      {''.join(photo_item(*next(p_ for p_ in PHOTOS if p_[0] == k_)) for k_ in ('g01', 'g13', 'g18', 'g15'))}
     </div>
   </div>
 </section>
@@ -705,6 +731,8 @@ gallery_body = f'''<section class="page-hero">
       <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
       <button class="chip" type="button" data-filter="workshop" aria-pressed="false">Мастерская</button>
       <button class="chip" type="button" data-filter="process" aria-pressed="false">Работа</button>
+      <button class="chip" type="button" data-filter="engine" aria-pressed="false">Двигатели</button>
+      <button class="chip" type="button" data-filter="cars" aria-pressed="false">Автомобили</button>
     </div>
     <div class="gallery-grid reveal" id="galleryGrid" data-gallery>{gal_items}</div>
   </div>
