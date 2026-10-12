@@ -163,8 +163,15 @@ CSP = ("default-src 'self'; script-src 'self' 'sha256-Du+OJKJSbdUgz5nrHeWWINvez6
        "base-uri 'self'; form-action 'self'; upgrade-insecure-requests")
 
 
+def ver(path):
+    # Метка версии файла (первые 8 символов хеша): при любой правке меняется адрес, и браузер берёт свежий файл
+    import hashlib
+    with open(os.path.join(OUT, path), 'rb') as f:
+        return hashlib.sha256(f.read()).hexdigest()[:8]
+
+
 def page(filename, title, description, body, active='', scripts=(), body_class=''):
-    js = ''.join(f'\n<script src="js/{s}" defer></script>' for s in ('spring.js', 'main.js', *scripts))
+    js = ''.join(f'\n<script src="js/{s}?v={ver(f"js/{s}")}" defer></script>' for s in ('spring.js', 'main.js', *scripts))
     html = f'''<!doctype html>
 <html lang="ru">
 <head>
@@ -176,7 +183,7 @@ def page(filename, title, description, body, active='', scripts=(), body_class='
 <meta http-equiv="Content-Security-Policy" content="{CSP}">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" type="image/png" href="img/logo-64.png">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/styles.css?v={ver('css/styles.css')}">
 <script>document.documentElement.classList.add('js')</script>{js}
 </head>
 <body{f' class="{body_class}"' if body_class else ''}>
