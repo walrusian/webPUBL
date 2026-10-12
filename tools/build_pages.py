@@ -831,20 +831,18 @@ booking_body = f'''<section class="page-hero">
             <span class="field__error" aria-live="polite"></span>
           </div>
         </div>
-        <div class="form__row">
-          <div class="field">
-            <label class="field__label" for="b-car">Автомобиль <span class="field__opt">— необязательно</span></label>
-            <input class="input" id="b-car" name="car" maxlength="80" placeholder="Марка, модель, год">
+        <div class="field">
+          <span class="field__label" id="kind-label">Выберите услугу</span>
+          <div class="segmented segmented--3" role="radiogroup" aria-labelledby="kind-label">
+            <input type="radio" name="kind" id="kind-diag" value="Диагностика" checked><label for="kind-diag">Диагностика</label>
+            <input type="radio" name="kind" id="kind-repair" value="Ремонт"><label for="kind-repair">Ремонт</label>
+            <input type="radio" name="kind" id="kind-to" value="ТО"><label for="kind-to">ТО</label>
+            <span class="segmented__thumb" aria-hidden="true"></span>
           </div>
-          <div class="field">
-            <span class="field__label" id="kind-label">Выберите услугу</span>
-            <div class="segmented segmented--3" role="radiogroup" aria-labelledby="kind-label">
-              <input type="radio" name="kind" id="kind-diag" value="Диагностика" checked><label for="kind-diag">Диагностика</label>
-              <input type="radio" name="kind" id="kind-repair" value="Ремонт"><label for="kind-repair">Ремонт</label>
-              <input type="radio" name="kind" id="kind-to" value="ТО"><label for="kind-to">ТО</label>
-              <span class="segmented__thumb" aria-hidden="true"></span>
-            </div>
-          </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="b-car">Автомобиль <span class="field__opt">— необязательно</span></label>
+          <input class="input" id="b-car" name="car" maxlength="80" placeholder="Марка, модель, год">
         </div>
         <div class="field">
           <label class="field__label" for="b-comment">Комментарий <span class="field__opt">— необязательно</span></label>
