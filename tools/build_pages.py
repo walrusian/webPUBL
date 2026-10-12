@@ -105,7 +105,7 @@ def header(active):
 <div class="menu-scrim"></div>
 <nav class="menu" id="menu" aria-label="Меню">
   {mlinks}
-  <a class="btn btn--primary btn--lg" href="booking.html">Записаться на диагностику</a>
+  <a class="btn btn--primary btn--lg" href="booking.html">Записаться</a>
   <a class="btn btn--ghost btn--lg" href="tel:{PHONES[0][0]}">{i("i-phone")}{PHONES[0][1]}</a>
 </nav>'''
 
@@ -130,7 +130,7 @@ FOOTER = f'''<footer class="footer">
       <div>
         <h4>Клиентам</h4>
         <ul>
-          <li><a href="booking.html">Запись на диагностику</a></li>
+          <li><a href="booking.html">Записаться</a></li>
           {'<li><a href="cart.html">Корзина</a></li>' if SHOP else ''}
           {'<li><a href="privacy.html#promo">Правила акции</a></li>' if PROMO else ''}
           <li><a href="privacy.html">Политика конфиденциальности</a></li>
