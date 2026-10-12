@@ -427,7 +427,9 @@ SCAN = f'''<div class="scan" data-x0="30" data-x1="790" aria-hidden="true">
 </div>
 </div>'''
 
-CALL_BTN = f'<a class="btn btn--ghost btn--lg" href="tel:{PHONES[0][0]}">{i("i-phone")}Позвонить</a>'
+# На компьютере кнопка открывает карточку с номерами (js/main.js, data-call), на телефоне — обычный звонок
+CALL_PHONES_JSON = json.dumps([list(p_) for p_ in PHONES], ensure_ascii=False)
+CALL_BTN = f'<a class="btn btn--ghost btn--lg" href="tel:{PHONES[0][0]}" data-call=\'{CALL_PHONES_JSON}\'>{i("i-phone")}Позвонить</a>'
 
 def lift_point(name, px, py, below=False):
     # координаты эскиза 1672×941, кадр (0,100)–(1672,900) → viewBox 800×383

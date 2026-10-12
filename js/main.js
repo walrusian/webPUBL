@@ -367,6 +367,92 @@
     update();
   });
 
+  /* ---------- «Позвонить»: на компьютере — карточка с номерами, на телефоне — обычный звонок ---------- */
+  // Компьютер определяем по точному указателю без сенсора: там ссылка tel: обычно ничего не делает
+  const desktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let callPop = null;
+  let callTrigger = null;
+
+  function closeCallPop() {
+    if (!callPop) return;
+    const pop = callPop;
+    callPop = null;
+    pop.classList.remove('is-open');
+    setTimeout(() => pop.remove(), 250); // уходит тем же путём, что и пришла
+    if (callTrigger) { callTrigger.setAttribute('aria-expanded', 'false'); callTrigger.focus({ preventScroll: true }); }
+    callTrigger = null;
+  }
+
+  function openCallPop(btn) {
+    let phones = [];
+    try { phones = JSON.parse(btn.dataset.call); } catch (e) { return; }
+    const pop = document.createElement('div');
+    pop.className = 'call-pop';
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', 'Телефоны Wagner Motors');
+    const title = document.createElement('p');
+    title.className = 'call-pop__title';
+    title.textContent = 'Звоните, всегда на связи';
+    pop.append(title);
+    phones.forEach(([tel, label]) => {
+      const row = document.createElement('div');
+      row.className = 'call-pop__row';
+      const a = document.createElement('a');
+      a.className = 'call-pop__num';
+      a.href = `tel:${tel}`;
+      a.textContent = label;
+      const copy = document.createElement('button');
+      copy.type = 'button';
+      copy.className = 'btn btn--ghost btn--sm';
+      copy.textContent = 'Скопировать';
+      copy.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(label);
+          toast(`Номер ${label} скопирован`);
+        } catch (e) {
+          toast('Не удалось скопировать — выделите номер вручную');
+        }
+      });
+      row.append(a, copy);
+      pop.append(row);
+    });
+    document.body.append(pop);
+
+    // Позиция: под кнопкой (или над ней, если снизу не хватает места), в пределах окна
+    const r = btn.getBoundingClientRect();
+    const w = pop.offsetWidth;
+    const h = pop.offsetHeight;
+    const gap = 10;
+    const below = r.bottom + gap + h <= window.innerHeight;
+    const left = Math.min(Math.max(12, r.left), window.innerWidth - w - 12);
+    const top = below ? r.bottom + gap : r.top - gap - h;
+    pop.style.left = `${left}px`;
+    pop.style.top = `${top}px`;
+    // Карточка «вырастает» из кнопки
+    pop.style.transformOrigin = `${r.left + r.width / 2 - left}px ${below ? 0 : h}px`;
+
+    callPop = pop;
+    callTrigger = btn;
+    btn.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(() => pop.classList.add('is-open'));
+    const first = pop.querySelector('.call-pop__num');
+    if (first) first.focus({ preventScroll: true });
+  }
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-call]');
+    if (btn && desktopPointer.matches) {
+      e.preventDefault();
+      if (callTrigger === btn) closeCallPop();
+      else { closeCallPop(); openCallPop(btn); }
+      return;
+    }
+    if (callPop && !e.target.closest('.call-pop')) closeCallPop();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCallPop(); });
+  window.addEventListener('scroll', closeCallPop, { passive: true });
+  window.addEventListener('resize', closeCallPop);
+
   /* ---------- Отзывы: одинаковые карточки, длинный текст — в шторке ---------- */
   const reviews = document.querySelectorAll('.review');
   if (reviews.length) {
