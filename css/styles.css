@@ -1048,6 +1048,11 @@ select.input {
   transition: transform 0.35s var(--ease-out);
 }
 .segmented input:nth-of-type(2):checked ~ .segmented__thumb { transform: translateX(100%); }
+/* Вариант на три кнопки */
+.segmented--3 { grid-template-columns: repeat(3, 1fr); }
+.segmented--3 label { padding: 0 0.25rem; font-size: 0.875rem; letter-spacing: -0.01em; }
+.segmented--3 .segmented__thumb { width: calc((100% - 8px) / 3); }
+.segmented--3 input:nth-of-type(3):checked ~ .segmented__thumb { transform: translateX(200%); }
 
 /* Ловушка для ботов: поле есть в форме, но человеку не видно и не доступно с клавиатуры */
 .hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }

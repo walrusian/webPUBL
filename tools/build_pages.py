@@ -793,11 +793,6 @@ contacts_body = f'''<section class="page-hero">
 page('contacts.html', 'Контакты — Wagner Motors', 'Адрес, телефон и часы работы Wagner Motors.', contacts_body, active='contacts.html')
 
 # ---------------------------------------------------------------- ЗАПИСЬ
-# Выбор в форме записи: «Диагностика» или «Ремонт», список под ним меняется (js/booking.js)
-BOOKING_DIAG = ['Комплексная диагностика', 'Компьютерная диагностика', 'Диагностика ходовой', 'Диагностика двигателя',
-                'Диагностика тормозной системы', 'Диагностика электрики', 'Другое']
-BOOKING_REPAIR = ['Комплексный ремонт', 'Двигатель', 'Ходовая и подвеска', 'Тормозная система', 'АКПП',
-                  'ТО и жидкости', 'Шины и кузов', 'Другое']
 booking_body = f'''<section class="page-hero">
   <div class="container">
     <p class="eyebrow reveal">Запись</p>
@@ -842,29 +837,13 @@ booking_body = f'''<section class="page-hero">
             <input class="input" id="b-car" name="car" maxlength="80" placeholder="Марка, модель, год">
           </div>
           <div class="field">
-            <label class="field__label" for="b-time">Когда удобно позвонить</label>
-            <select class="input" id="b-time" name="time">
-              <option>В любое время</option>
-              <option>Утром</option>
-              <option>Днём</option>
-              <option>Вечером</option>
-            </select>
-          </div>
-        </div>
-        <div class="form__row">
-          <div class="field">
-            <span class="field__label" id="kind-label">Что нужно</span>
-            <div class="segmented" role="radiogroup" aria-labelledby="kind-label">
-              <input type="radio" name="kind" id="kind-diag" value="Диагностика" checked><label for="kind-diag">{i("i-gauge")}Диагностика</label>
-              <input type="radio" name="kind" id="kind-repair" value="Ремонт"><label for="kind-repair">{i("i-wrench")}Ремонт</label>
+            <span class="field__label" id="kind-label">Чем помочь</span>
+            <div class="segmented segmented--3" role="radiogroup" aria-labelledby="kind-label">
+              <input type="radio" name="kind" id="kind-diag" value="Диагностика" checked><label for="kind-diag">Диагностика</label>
+              <input type="radio" name="kind" id="kind-repair" value="Ремонт"><label for="kind-repair">Ремонт</label>
+              <input type="radio" name="kind" id="kind-to" value="ТО"><label for="kind-to">ТО</label>
               <span class="segmented__thumb" aria-hidden="true"></span>
             </div>
-          </div>
-          <div class="field">
-            <label class="field__label" for="b-service" data-service-label>Какая диагностика</label>
-            <select class="input" id="b-service" name="service" data-diag='{json.dumps(BOOKING_DIAG, ensure_ascii=False)}' data-repair='{json.dumps(BOOKING_REPAIR, ensure_ascii=False)}'>
-              {''.join(f'<option>{o}</option>' for o in BOOKING_DIAG)}
-            </select>
           </div>
         </div>
         <div class="field">

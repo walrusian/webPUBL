@@ -20,30 +20,6 @@
     return new Promise((resolve) => setTimeout(resolve, 700));
   }
 
-  // «Диагностика» / «Ремонт»: список под переключателем меняется, выбор по умолчанию — первый пункт
-  const service = form.querySelector('#b-service');
-  const serviceLabel = form.querySelector('[data-service-label]');
-  const LISTS = {
-    'Диагностика': { label: 'Какая диагностика', items: JSON.parse(service.dataset.diag) },
-    'Ремонт': { label: 'Какой ремонт', items: JSON.parse(service.dataset.repair) },
-  };
-  function fillService(kind) {
-    const list = LISTS[kind];
-    if (!list) return;
-    serviceLabel.textContent = list.label;
-    service.textContent = '';
-    list.items.forEach((t) => {
-      const o = document.createElement('option');
-      o.textContent = t;
-      service.append(o);
-    });
-  }
-  form.querySelectorAll('input[name="kind"]').forEach((r) => {
-    r.addEventListener('change', () => { if (r.checked) fillService(r.value); });
-  });
-  const checkedKind = form.querySelector('input[name="kind"]:checked');
-  if (checkedKind) fillService(checkedKind.value);
-
   initForm(form, async (data, { bot }) => {
     if (bot) { card.classList.add('is-done'); return; } // бот видит «успех», заявка никуда не уходит
     submit.disabled = true;
@@ -61,7 +37,6 @@
 
   card.querySelector('[data-booking-again]')?.addEventListener('click', () => {
     form.reset();
-    fillService('Диагностика');
     card.classList.remove('is-done');
   });
 })();
