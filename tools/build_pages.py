@@ -187,6 +187,30 @@ def ph_video(label, tone='cool'):
     return f'<div class="ph ph--{tone}"><div class="ph__inner"><span class="ph__play">{i("i-play")}</span><span>{label}</span></div></div>'
 
 
+# Фотосессия мастерской (фотограф Роман, rkochkaev.ru, 08.02.2026): 12 лучших кадров,
+# головы механиков на g01 размыты. Плитка — *-800.webp, полноэкранный просмотр — *-1600.webp.
+PHOTOS = [
+    ('g01', 'workshop', 'Мастерская'),
+    ('g02', 'workshop', 'BMW на стенде'),
+    ('g03', 'workshop', 'Нива на подъёмнике'),
+    ('g04', 'workshop', 'Чистый бокс'),
+    ('g05', 'process', 'Новый тормозной суппорт'),
+    ('g06', 'process', 'Перфорированный тормозной диск'),
+    ('g07', 'process', 'Ремонт двигателя'),
+    ('g08', 'process', 'Подвеска'),
+    ('g09', 'process', 'Трансмиссия'),
+    ('g10', 'process', 'Работа мастера'),
+    ('g11', 'process', 'Ступица и тормоза'),
+    ('g12', 'process', 'Днище автомобиля'),
+]
+
+
+def photo_item(key, kind, caption):
+    return (f'<button class="g-item" type="button" data-type="{kind}" data-caption="{caption}" '
+            f'data-src="img/gallery/{key}-1600.webp" aria-label="Открыть: {caption}">'
+            f'<img class="g-item__img" src="img/gallery/{key}-800.webp" alt="{caption}" loading="lazy" decoding="async"></button>')
+
+
 def g_item(label, tone, kind='photo', caption=None):
     inner = ph_video(label, tone) if kind == 'video' else ph(label, 'i-camera', tone)
     cap = caption or label
@@ -490,10 +514,7 @@ index_body = f'''<section class="hero">
       <a class="link reveal" href="gallery.html">Вся галерея {i("i-arrow")}</a>
     </div>
     <div class="bento reveal" data-gallery>
-      {g_item("Фото мастерской", "warm")}
-      {g_item("Фото подъёмника", "cool")}
-      {g_item("Видео о сервисе", "steel", "video")}
-      {g_item("Фото зоны ожидания", "olive")}
+      {''.join(photo_item(*PHOTOS[n]) for n in (0, 4, 6, 1))}
     </div>
   </div>
 </section>
@@ -666,13 +687,11 @@ gal = [
     ('Видео-экскурсия по сервису', 'warm', 'video', 'workshop'), ('Фото до/после ремонта', 'steel', 'photo', 'process'),
     ('Фото фасада', 'olive', 'photo', 'workshop'),
 ]
-gal_items = ''.join(
-    f'<button class="g-item" type="button" data-type="{"video" if k == "video" else c}" data-caption="{l}" aria-label="Открыть: {l}">{ph_video(l, t) if k == "video" else ph(l, "i-camera", t)}</button>'
-    for l, t, k, c in gal)
+gal_items = ''.join(photo_item(*ph_) for ph_ in PHOTOS)
 gallery_body = f'''<section class="page-hero">
   <div class="container">
     <p class="eyebrow reveal">Галерея</p>
-    <h1 class="h1 reveal" style="--d:1">Фото и видео</h1>
+    <h1 class="h1 reveal" style="--d:1">Мастерская и работа</h1>
     <p class="lead reveal" style="--d:2">Как выглядит сервис и&nbsp;как мы работаем. Нажмите на&nbsp;кадр — листайте свайпом.</p>
   </div>
 </section>
@@ -682,13 +701,11 @@ gallery_body = f'''<section class="page-hero">
       <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
       <button class="chip" type="button" data-filter="workshop" aria-pressed="false">Мастерская</button>
       <button class="chip" type="button" data-filter="process" aria-pressed="false">Работа</button>
-      <button class="chip" type="button" data-filter="video" aria-pressed="false">Видео</button>
     </div>
     <div class="gallery-grid reveal" id="galleryGrid" data-gallery>{gal_items}</div>
-    <p class="draft-note">фото и видео — заглушки, ждём материалы от клиента</p>
   </div>
 </section>'''
-page('gallery.html', 'Галерея — Wagner Motors', 'Фото и видео автосервиса Wagner Motors.', gallery_body, active='gallery.html', scripts=('gallery.js',))
+page('gallery.html', 'Галерея — Wagner Motors', 'Фото мастерской и работ автосервиса Wagner Motors.', gallery_body, active='gallery.html', scripts=('gallery.js',))
 
 # ---------------------------------------------------------------- ОТЗЫВЫ
 reviews_body = f'''<section class="page-hero">
