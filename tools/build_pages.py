@@ -277,6 +277,12 @@ PRICES = [
 ]
 
 
+# Порядок на странице услуг: пары с близким числом пунктов, чтобы ряды были ровными
+# (двигатель 9 + ходовая 8, ТО 5 + диагностика 3, кузов 3 + АКПП 2)
+_ORDER = ['engine', 'chassis', 'fluids', 'diag', 'body', 'gearbox']
+PRICES_PAIRED = sorted(PRICES, key=lambda g: _ORDER.index(g[0]))
+
+
 def rub(n):
     return f'{n:,}'.replace(',', '&nbsp;') + '&nbsp;₽'
 
@@ -658,8 +664,8 @@ services_body = f'''<section class="page-hero">
       </div>
       <p class="lead cta__phones reveal">{PHONE_LINKS}</p>
     </div>
-    <nav class="chips reveal" aria-label="Разделы услуг">{''.join(f'<a class="chip" href="#{k}">{t}</a>' for k, _, t, _ in PRICES)}<a class="chip" href="#rent">Аренда авто</a></nav>
-    <div class="pricelist">{''.join(price_group(*g, n=n) for n, g in enumerate(PRICES))}</div>
+    <nav class="chips reveal" aria-label="Разделы услуг">{''.join(f'<a class="chip" href="#{k}">{t}</a>' for k, _, t, _ in PRICES_PAIRED)}<a class="chip" href="#rent">Аренда авто</a></nav>
+    <div class="pricelist">{''.join(price_group(*g, n=n) for n, g in enumerate(PRICES_PAIRED))}</div>
   </div>
 </section>
 
