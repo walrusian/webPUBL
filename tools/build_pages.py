@@ -410,7 +410,7 @@ MAP = f'''<div class="map reveal">
   <span class="map__pin">{i("i-pin")}</span>
   <div class="map__card"><span><strong>Wagner Motors</strong> · {SERVICE_ADDR}</span>
     <div class="map__links">
-      <a class="btn btn--primary btn--sm" href="{MAP_YANDEX}" target="_blank" rel="noopener">Яндекс Карты</a>
+      <a class="btn btn--ghost btn--sm" href="{MAP_YANDEX}" target="_blank" rel="noopener">Яндекс Карты</a>
       <a class="btn btn--ghost btn--sm" href="{MAP_2GIS}" target="_blank" rel="noopener">2ГИС</a>
     </div>
   </div>
