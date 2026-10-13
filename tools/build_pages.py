@@ -401,10 +401,9 @@ def contacts_list():
         for n, (ic, t, v) in enumerate(rows)) + '</dl>'
 
 
-# Ссылки на карты по адресу (поиск); внешний код на страницу не грузится
-from urllib.parse import quote
-MAP_YANDEX = 'https://yandex.ru/maps/?text=' + quote('Ставрополь, улица Коломийцева, 38а к2')
-MAP_2GIS = 'https://2gis.ru/stavropol/search/' + quote('Коломийцева 38а к2')
+# Ссылки на карточки автосервиса в картах (сверено 13.10.2026: адрес Коломийцева 38А к2); внешний код на страницу не грузится
+MAP_YANDEX = 'https://yandex.ru/maps/org/vagner_motors/169217220279/'
+MAP_2GIS = 'https://2gis.ru/stavropol/firm/70000001041090086'
 
 MAP = f'''<div class="map reveal">
   <span class="map__pin">{i("i-pin")}</span>
