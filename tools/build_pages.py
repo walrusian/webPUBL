@@ -401,9 +401,19 @@ def contacts_list():
         for n, (ic, t, v) in enumerate(rows)) + '</dl>'
 
 
+# Ссылки на карты по адресу (поиск); внешний код на страницу не грузится
+from urllib.parse import quote
+MAP_YANDEX = 'https://yandex.ru/maps/?text=' + quote('Ставрополь, улица Коломийцева, 38а к2')
+MAP_2GIS = 'https://2gis.ru/stavropol/search/' + quote('Коломийцева 38а к2')
+
 MAP = f'''<div class="map reveal">
   <span class="map__pin">{i("i-pin")}</span>
-  <div class="map__card"><span><strong>Wagner Motors</strong> · {SERVICE_ADDR}</span><span class="small">Карта — способ подключения решим позже</span></div>
+  <div class="map__card"><span><strong>Wagner Motors</strong> · {SERVICE_ADDR}</span>
+    <div class="map__links">
+      <a class="btn btn--primary btn--sm" href="{MAP_YANDEX}" target="_blank" rel="noopener">Яндекс Карты</a>
+      <a class="btn btn--ghost btn--sm" href="{MAP_2GIS}" target="_blank" rel="noopener">2ГИС</a>
+    </div>
+  </div>
 </div>'''
 
 # ---------------------------------------------------------------- ГЛАВНАЯ
@@ -780,7 +790,7 @@ contacts_body = f'''<section class="page-hero">
     <div class="cta reveal">
       <div>
         <h2 class="h2">Как добраться</h2>
-        <p class="lead">{SERVICE_ADDR}. Рядом ГАИ.</p>
+        <p class="lead">{SERVICE_ADDR}</p>
       </div>
       <a class="btn btn--primary btn--lg" href="booking.html">Записаться</a>
     </div>
