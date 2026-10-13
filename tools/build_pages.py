@@ -4,7 +4,11 @@
 import json
 import os
 
-OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.environ.get('BUILD_OUT') or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Адрес обработчика заявок. Пусто — демо (GitHub Pages, заявки никуда не уходят).
+# Для хостинга собирается через tools/package_hosting.py, там LEAD_API=api/lead.php
+LEAD_API = os.environ.get('LEAD_API', '')
 
 # Временно выключенные части сайта. Код (cart.html, js/cart.js, стили билета/корзины) остаётся —
 # чтобы вернуть, поставить True и пересобрать страницы.
@@ -186,7 +190,7 @@ def page(filename, title, description, body, active='', scripts=(), body_class='
 <meta name="description" content="{description}">
 <meta name="theme-color" content="#0a0a0b">
 <meta http-equiv="Content-Security-Policy" content="{CSP}">
-<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="referrer" content="strict-origin-when-cross-origin">{f'{chr(10)}<meta name="lead-api" content="{LEAD_API}">' if LEAD_API else ''}
 <link rel="icon" type="image/png" href="img/logo-64.png">
 <link rel="stylesheet" href="css/styles.css?v={ver('css/styles.css')}">
 <script>document.documentElement.classList.add('js')</script>{js}
