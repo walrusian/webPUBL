@@ -288,6 +288,12 @@ mark.todo {
 .nav__links a:hover, .nav__links a[aria-current="page"] { color: var(--text); }
 .nav__actions { display: flex; align-items: center; gap: 0.5rem; }
 
+/* Круглые иконки мессенджеров в шапке */
+.nav-msg { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; flex: none; transition: transform 100ms ease-out, opacity 0.2s; -webkit-tap-highlight-color: transparent; }
+.nav-msg .msg__icon { width: 1.75rem; height: 1.75rem; }
+.nav-msg:hover { opacity: 0.85; }
+.nav-msg:active { transform: scale(0.9); }
+
 .cart-btn__badge {
   position: absolute;
   top: 2px;
