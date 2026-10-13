@@ -878,6 +878,25 @@ a.chip { display: inline-flex; align-items: center; }
 .contact dt { font-size: 0.8125rem; color: var(--text-2); }
 .contact dd { margin-top: 0.15rem; font-weight: 600; }
 
+.msgs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.35rem; }
+.msg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0 1rem 0 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: transform 100ms ease-out, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.msg:hover { box-shadow: inset 0 0 0 1px var(--line-strong); }
+.msg:active { transform: scale(0.96); }
+.msg__icon { width: 1.75rem; height: 1.75rem; flex: none; }
+
 .map {
   position: relative;
   min-height: 22rem;

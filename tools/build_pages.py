@@ -390,10 +390,29 @@ def service_card(ic, title, text, href='services.html', price=True):
 </a>'''
 
 
+# Мессенджеры (13.10.2026). Telegram — на номер +7 (962) 494-77-94: ссылка t.me/+номер открывает чат в приложении
+# (работает, если в Telegram разрешён поиск по номеру). MAX — на +7 (928) 222-24-64: открыть чат по номеру ссылкой
+# MAX не умеет, нужна ссылка на профиль (Профиль → Поделиться). Пока её нет, кнопка MAX не показывается.
+TELEGRAM_URL = 'https://t.me/+79624947794'
+MAX_URL = None
+TG_ICON = ('<svg class="msg__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#2AABEE"/>'
+           '<path fill="#fff" d="M5.4 11.8 17.3 7.2c.6-.2 1.1.1.9 1l-2 9.5c-.1.7-.6.8-1.2.5l-3.1-2.3-1.5 1.4c-.2.2-.3.3-.6.3l.2-3.2 5.8-5.3c.3-.2-.1-.4-.4-.2l-7.2 4.5-3.1-1c-.7-.2-.7-.7.1-1z"/></svg>')
+MAX_ICON = ('<svg class="msg__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#5B5BF6"/>'
+            '<path fill="#fff" d="M6 16.5V7.5h1.9l4.1 5 4.1-5H18v9h-2v-5.8l-4 4.8-4-4.8v5.8z"/></svg>')
+
+
+def messengers():
+    links = [f'<a class="msg" href="{TELEGRAM_URL}" target="_blank" rel="noopener">{TG_ICON}<span>Telegram</span></a>']
+    if MAX_URL:
+        links.append(f'<a class="msg" href="{MAX_URL}" target="_blank" rel="noopener">{MAX_ICON}<span>MAX</span></a>')
+    return '<span class="msgs">' + ''.join(links) + '</span>'
+
+
 def contacts_list():
     rows = [
         ('pin', 'Адрес', SERVICE_ADDR),
         ('phone', 'Телефоны — всегда на связи', PHONE_LINKS),
+        ('chat', 'Напишите в мессенджер', messengers()),
         ('i-clock', 'Часы работы', HOURS[0].upper() + HOURS[1:]),
     ]
     return '<dl class="contact-list">' + ''.join(
