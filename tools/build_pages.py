@@ -68,7 +68,7 @@ def bicon(name, size=''):
     return f'<span class="bicon bicon--svg{size}">{i(name)}</span>'
 
 
-SERVICE_ADDR = f'{todo("город")}, ул.&nbsp;Коломийцева, 38а, корп.&nbsp;2'
+SERVICE_ADDR = 'г.&nbsp;Ставрополь, ул.&nbsp;Коломийцева, 38а, корп.&nbsp;2'
 HOURS = 'с 9:00 до 20:00'
 PHONES = [('+79282222464', '+7 (928) 222-24-64'), ('+79624947794', '+7 (962) 494-77-94')]
 PHONE_LINKS = '<br>'.join(f'<a class="tel" href="tel:{h}">{t}</a>' for h, t in PHONES)
